@@ -10,7 +10,7 @@ NGX_DEVEL_KIT_VERSION="v0.3.3"
 
 source /etc/os-release
 
-if [[ "$VERSION_ID" >= "12" ]]; then
+if [[ "$VERSION_ID" -ge "12" ]]; then
     sed -i '/^Types:/s/deb/& deb-src/' /etc/apt/sources.list.d/debian.sources
 else
     cp /etc/apt/sources.list /etc/apt/sources.list.d/sources-src.list
