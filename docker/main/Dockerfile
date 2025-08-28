@@ -6,8 +6,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Globally set pip break-system-packages option to avoid having to specify it every time
 ARG PIP_BREAK_SYSTEM_PACKAGES=1
 
-ARG BASE_IMAGE=debian:12
-ARG SLIM_BASE=debian:12-slim
+ARG BASE_IMAGE=debian:13
+ARG SLIM_BASE=debian:13-slim
 
 # A hook that allows us to inject commands right after the base images
 ARG BASE_HOOK=
@@ -18,7 +18,7 @@ ARG BASE_HOOK
 
 RUN sh -c "$BASE_HOOK"
 
-FROM --platform=${BUILDPLATFORM} debian:12 AS base_host
+FROM --platform=${BUILDPLATFORM} debian:13 AS base_host
 ARG PIP_BREAK_SYSTEM_PACKAGES
 
 FROM ${SLIM_BASE} AS slim-base
