@@ -87,7 +87,6 @@ if [[ "${TARGETARCH}" == "amd64" ]]; then
     apt-get install -y dpkg
 
     # use intel apt intel packages
-    apt-get install -y software-properties-common
     add-apt-repository -y ppa:kobuk-team/intel-graphics
     apt-get -qq update
     apt-get -qq install --no-install-recommends --no-install-suggests -y \
