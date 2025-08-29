@@ -6,8 +6,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Globally set pip break-system-packages option to avoid having to specify it every time
 ARG PIP_BREAK_SYSTEM_PACKAGES=1
 
-ARG BASE_IMAGE=ubuntu:24.04
-ARG SLIM_BASE=ubuntu:24.04
+ARG BASE_IMAGE=debian:13
+ARG SLIM_BASE=debian:13-lite
 
 # A hook that allows us to inject commands right after the base images
 ARG BASE_HOOK=
