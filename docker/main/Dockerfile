@@ -152,6 +152,9 @@ ARG DEBUG=false
 
 # Use a separate container to build wheels to prevent build dependencies in final image
 RUN apt-get -qq update \
+    apt-get -qq install --no-install-recommends -y software-properties-common \
+    add-apt-repository ppa:deadsnakes/ppa \
+    apt-get -qq update \
     && apt-get -qq install -y \
     apt-transport-https wget unzip \
     && apt-get -qq update \
