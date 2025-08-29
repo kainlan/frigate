@@ -11,9 +11,9 @@ NGX_DEVEL_KIT_VERSION="v0.3.3"
 source /etc/os-release
 
 apt-get update
-apt-get install dpkg-dev
+apt-get -qq install --no-install-recommends -y dpkg-dev
 add-apt-repository ppa:nginx/stable
-apt-get source nginx
+apt-get -yqq source nginx
 apt-get -yqq build-dep nginx
 
 apt-get -yqq install --no-install-recommends ca-certificates wget
