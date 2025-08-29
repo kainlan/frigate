@@ -156,8 +156,8 @@ RUN apt-get -qq update \
     apt-transport-https wget unzip \
     && apt-get -qq update \
     && apt-get -qq install -y \
-    python3.13 \
-    python3.13-dev \
+    python3.11 \
+    python3.11-dev \
     # opencv dependencies
     build-essential cmake git pkg-config libgtk-3-dev \
     libavcodec-dev libavformat-dev libswscale-dev libv4l-dev \
@@ -171,7 +171,7 @@ RUN apt-get -qq update \
     gcc gfortran libopenblas-dev liblapack-dev && \
     rm -rf /var/lib/apt/lists/*
 
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 1
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1
 
 RUN wget -q https://bootstrap.pypa.io/get-pip.py -O get-pip.py \
     && sed -i 's/args.append("setuptools")/args.append("setuptools==77.0.3")/' get-pip.py \
