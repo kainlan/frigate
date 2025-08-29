@@ -81,39 +81,25 @@ if [[ "${TARGETARCH}" == "amd64" ]]; then
 
     # intel packages use zst compression so we need to update dpkg
     apt-get install -y dpkg
-
+    apt-get install -y software-properties-common
     # use intel apt intel packages
-    wget -qO - https://repositories.intel.com/gpu/intel-graphics.key | gpg --yes --dearmor --output /usr/share/keyrings/intel-graphics.gpg
-    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/intel-graphics.gpg] https://repositories.intel.com/gpu/ubuntu jammy client" | tee /etc/apt/sources.list.d/intel-gpu-jammy.list
+
+    sudo add-apt-repository -y ppa:kobuk-team/intel-graphics
     apt-get update
     apt-get -qq install --no-install-recommends --no-install-suggests -y \
-        intel-media-va-driver-non-free libmfx1 libmfxgen1 libvpl2
+        libze-intel-gpu1 libze1 intel-metrics-discovery intel-opencl-icd clinfo intel-gsc \
+        intel-media-va-driver-non-free libmfx-gen1 libvpl2 libvpl-tools libva-glx2 va-driver-all vainfo
 
     apt-get -qq install -y ocl-icd-libopencl1
+    
+    wget https://github.com/intel/linux-npu-driver/releases/download/v1.23.0/linux-npu-driver-v1.23.0.20250827-17270089246-ubuntu2404.tar.gz
+    tar -xf linux-npu-driver-v1.23.0.20250827-17270089246-ubuntu2404.tar.gz
 
-    rm -f /usr/share/keyrings/intel-graphics.gpg
-    rm -f /etc/apt/sources.list.d/intel-gpu-jammy.list
-
-    # install legacy and standard intel icd and level-zero-gpu
-    # see https://github.com/intel/compute-runtime/blob/master/LEGACY_PLATFORMS.md for more info
-    # needed core package
-    wget https://github.com/intel/compute-runtime/releases/download/24.52.32224.5/libigdgmm12_22.5.5_amd64.deb
-    dpkg -i libigdgmm12_22.5.5_amd64.deb
-    rm libigdgmm12_22.5.5_amd64.deb
-
-    # legacy packages
-    wget https://github.com/intel/compute-runtime/releases/download/24.35.30872.22/intel-opencl-icd-legacy1_24.35.30872.22_amd64.deb
-    wget https://github.com/intel/compute-runtime/releases/download/24.35.30872.22/intel-level-zero-gpu-legacy1_1.3.30872.22_amd64.deb
-    wget https://github.com/intel/intel-graphics-compiler/releases/download/igc-1.0.17537.20/intel-igc-opencl_1.0.17537.20_amd64.deb
-    wget https://github.com/intel/intel-graphics-compiler/releases/download/igc-1.0.17537.20/intel-igc-core_1.0.17537.20_amd64.deb
-    # standard packages
-    wget https://github.com/intel/compute-runtime/releases/download/24.52.32224.5/intel-opencl-icd_24.52.32224.5_amd64.deb
-    wget https://github.com/intel/compute-runtime/releases/download/24.52.32224.5/intel-level-zero-gpu_1.6.32224.5_amd64.deb
-    wget https://github.com/intel/intel-graphics-compiler/releases/download/v2.5.6/intel-igc-opencl-2_2.5.6+18417_amd64.deb
-    wget https://github.com/intel/intel-graphics-compiler/releases/download/v2.5.6/intel-igc-core-2_2.5.6+18417_amd64.deb
+    sudo apt install libtbb12
 
     dpkg -i *.deb
     rm *.deb
+    rm linux-npu-driver-v1.23.0.20250827-17270089246-ubuntu2404.tar.gz
 fi
 
 if [[ "${TARGETARCH}" == "arm64" ]]; then
