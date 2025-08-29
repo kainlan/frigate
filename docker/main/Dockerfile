@@ -7,7 +7,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ARG PIP_BREAK_SYSTEM_PACKAGES=1
 
 ARG BASE_IMAGE=debian:13
-ARG SLIM_BASE=debian:13-lite
+ARG SLIM_BASE=debian:13-slim
 
 # A hook that allows us to inject commands right after the base images
 ARG BASE_HOOK=
