@@ -6,8 +6,8 @@ SQLITE_VEC_VERSION="0.1.3"
 
 source /etc/os-release
 
-apt-get update
-apt-get -qq install --no-install-recommends -y dpkg-dev
+sed -i 's/^Types: deb$/Types: deb deb-src/' /etc/apt/sources.list.d/ubuntu.sources
+
 apt-get update
 apt-get -yqq build-dep sqlite3 gettext git
 
