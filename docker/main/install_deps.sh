@@ -80,7 +80,8 @@ if [[ "${TARGETARCH}" == "amd64" ]]; then
     apt-get install -y dpkg
 
     # use intel apt intel packages
-    gpg --no-default-keyring --keyring=/usr/share/keyrings/intel-graphics.gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys 0C0E6AF955CE463C03FC51574D098D70AFBE5E1F
+    gpg --no-default-keyring --keyring=/tmp/keyring.gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys 0C0E6AF955CE463C03FC51574D098D70AFBE5E1F
+    gpg --no-default-keyring --keyring /tmp/keyring.gpg --output /usr/share/keyrings/intel-graphics.gpg --export
     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/intel-graphics.gpg] https://ppa.launchpadcontent.net/kobuk-team/intel-graphics/ubuntu/ noble main" | tee /etc/apt/sources.list.d/intel-gpu-noble.list
     echo "deb-src [arch=amd64 signed-by=/usr/share/keyrings/intel-graphics.gpg] https://ppa.launchpadcontent.net/kobuk-team/intel-graphics/ubuntu/ noble main" | tee /etc/apt/sources.list.d/intel-gpu-noble.list
     apt-get -qq update
