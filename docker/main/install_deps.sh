@@ -3,7 +3,7 @@
 set -euxo pipefail
 
 apt-get -qq update
-apt-get -qq install --no-install-recommends -y dpkg-dev
+apt-get -qq install --no-install-recommends -y software-properties-common
 add-apt-repository ppa:deadsnakes/ppa
 apt-get -qq update
 
