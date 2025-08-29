@@ -82,6 +82,7 @@ if [[ "${TARGETARCH}" == "amd64" ]]; then
     # intel packages use zst compression so we need to update dpkg
     apt-get install -y dpkg
     apt-get install -y software-properties-common
+    apt-get install --reinstall python3-apt
     # use intel apt intel packages
 
     add-apt-repository -y ppa:kobuk-team/intel-graphics
