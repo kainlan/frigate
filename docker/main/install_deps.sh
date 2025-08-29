@@ -91,7 +91,7 @@ if [[ "${TARGETARCH}" == "amd64" ]]; then
     apt-get install -y software-properties-common
     # use intel apt intel packages
 
-    sudo add-apt-repository -y ppa:kobuk-team/intel-graphics
+    add-apt-repository -y ppa:kobuk-team/intel-graphics
     apt-get update
     apt-get -qq install --no-install-recommends --no-install-suggests -y \
         libze-intel-gpu1 libze1 intel-metrics-discovery intel-opencl-icd clinfo intel-gsc \
