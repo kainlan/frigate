@@ -12,7 +12,7 @@ apt-get -qq install --no-install-recommends -y \
     lbzip2 \
     procps vainfo \
     unzip locales tzdata libxml2 xz-utils \
-    python3.13 \
+    python3.11 \
     curl \
     lsof \
     jq \
@@ -22,7 +22,7 @@ apt-get -qq install --no-install-recommends -y \
     libusb-1.0.0 \
     libgomp1  # memryx detector
 
-update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 1
+update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1
 
 mkdir -p -m 600 /root/.gnupg
 
