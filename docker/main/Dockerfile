@@ -257,7 +257,7 @@ RUN wget -q https://bootstrap.pypa.io/get-pip.py -O get-pip.py \
     && python3 get-pip.py "pip"
 
 RUN --mount=type=bind,from=wheels,source=/wheels,target=/deps/wheels \
-    pip3 install -U /deps/wheels/*.whl --force-reinstall
+    pip3 install -U /deps/wheels/*.whl --ignore-installed
 
 # Install MemryX runtime (requires libgomp (OpenMP) in the final docker image)
 RUN --mount=type=bind,source=docker/main/install_memryx.sh,target=/deps/install_memryx.sh \
