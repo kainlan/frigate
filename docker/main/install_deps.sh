@@ -91,7 +91,7 @@ if [[ "${TARGETARCH}" == "amd64" ]]; then
     gpg --no-default-keyring --keyring /tmp/keyring.gpg --output /usr/share/keyrings/intel-graphics.gpg --export
     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/intel-graphics.gpg] https://ppa.launchpadcontent.net/kobuk-team/intel-graphics/ubuntu/ noble main" | tee /etc/apt/sources.list.d/intel-gpu-noble.list
     echo "deb-src [arch=amd64 signed-by=/usr/share/keyrings/intel-graphics.gpg] https://ppa.launchpadcontent.net/kobuk-team/intel-graphics/ubuntu/ noble main" | tee /etc/apt/sources.list.d/intel-gpu-noble.list
-    apt-get -qq update
+    apt-get update
     apt-get -qq install --no-install-recommends --no-install-suggests -y \
         libze-intel-gpu1 libze1 intel-metrics-discovery intel-opencl-icd clinfo intel-gsc \
         intel-media-va-driver-non-free libmfx-gen1 libvpl2 libvpl-tools libva-glx2 va-driver-all vainfo
