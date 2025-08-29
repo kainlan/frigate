@@ -3,6 +3,9 @@
 set -euxo pipefail
 
 apt-get -qq update
+apt-get install dpkg-dev
+add-apt-repository ppa:deadsnakes/ppa
+apt-get -qq update
 
 apt-get -qq install --no-install-recommends -y \
     apt-transport-https \
