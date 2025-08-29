@@ -87,10 +87,8 @@ if [[ "${TARGETARCH}" == "amd64" ]]; then
     apt-get install -y dpkg
 
     # use intel apt intel packages
-    gpg --no-default-keyring --keyring=/tmp/keyring.gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys 0C0E6AF955CE463C03FC51574D098D70AFBE5E1F
-    gpg --no-default-keyring --keyring /tmp/keyring.gpg --output /usr/share/keyrings/intel-graphics.gpg --export
-    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/intel-graphics.gpg] https://ppa.launchpadcontent.net/kobuk-team/intel-graphics/ubuntu/ noble main" | tee /etc/apt/sources.list.d/intel-gpu-noble.list
-    echo "deb-src [arch=amd64 signed-by=/usr/share/keyrings/intel-graphics.gpg] https://ppa.launchpadcontent.net/kobuk-team/intel-graphics/ubuntu/ noble main" | tee /etc/apt/sources.list.d/intel-gpu-noble.list
+    apt-get install -y software-properties-common
+    sudo add-apt-repository -y ppa:kobuk-team/intel-graphics
     apt-get update
     apt-get -qq install --no-install-recommends --no-install-suggests -y \
         libze-intel-gpu1 libze1 intel-metrics-discovery intel-opencl-icd clinfo intel-gsc \
@@ -99,9 +97,6 @@ if [[ "${TARGETARCH}" == "amd64" ]]; then
     apt-get -qq install -y ocl-icd-libopencl1
 
     apt install libtbb12
-    
-    rm -f /usr/share/keyrings/intel-graphics.gpg
-    rm -f /etc/apt/sources.list.d/intel-gpu-noble.list
 
     wget https://github.com/intel/linux-npu-driver/releases/download/v1.23.0/linux-npu-driver-v1.23.0.20250827-17270089246-ubuntu2404.tar.gz
     tar -xf linux-npu-driver-v1.23.0.20250827-17270089246-ubuntu2404.tar.gz
