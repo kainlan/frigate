@@ -6,8 +6,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Globally set pip break-system-packages option to avoid having to specify it every time
 ARG PIP_BREAK_SYSTEM_PACKAGES=1
 
-ARG BASE_IMAGE=debian:12
-ARG SLIM_BASE=debian:12-slim
+ARG BASE_IMAGE=ubuntu:24.04
+ARG SLIM_BASE=ubuntu:24.04
 
 # A hook that allows us to inject commands right after the base images
 ARG BASE_HOOK=
@@ -18,7 +18,7 @@ ARG BASE_HOOK
 
 RUN sh -c "$BASE_HOOK"
 
-FROM --platform=${BUILDPLATFORM} debian:12 AS base_host
+FROM --platform=${BUILDPLATFORM} ubuntu:24.04 AS base_host
 ARG PIP_BREAK_SYSTEM_PACKAGES
 
 FROM ${SLIM_BASE} AS slim-base
@@ -76,7 +76,7 @@ ARG DEBIAN_FRONTEND
 # Install OpenVino Runtime and Dev library
 COPY docker/main/requirements-ov.txt /requirements-ov.txt
 RUN apt-get -qq update \
-    && apt-get -qq install -y wget python3 python3-dev python3-distutils gcc pkg-config libhdf5-dev \
+    && apt-get -qq install -y wget python3 python3-dev python3-setuptools gcc pkg-config libhdf5-dev \
     && wget -q https://bootstrap.pypa.io/get-pip.py -O get-pip.py \
     && sed -i 's/args.append("setuptools")/args.append("setuptools==77.0.3")/' get-pip.py \
     && python3 get-pip.py "pip" \
@@ -151,6 +151,9 @@ ARG TARGETARCH
 
 # Use a separate container to build wheels to prevent build dependencies in final image
 RUN apt-get -qq update \
+    && apt-get -qq install --no-install-recommends -y software-properties-common \
+    && add-apt-repository ppa:deadsnakes/ppa \
+    && apt-get -qq update \
     && apt-get -qq install -y \
     apt-transport-https wget unzip \
     && apt-get -qq update \
