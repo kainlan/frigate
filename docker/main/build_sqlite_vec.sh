@@ -6,12 +6,7 @@ SQLITE_VEC_VERSION="0.1.3"
 
 source /etc/os-release
 
-if [[ "$VERSION_ID" == "12" ]]; then
-    sed -i '/^Types:/s/deb/& deb-src/' /etc/apt/sources.list.d/debian.sources
-else
-    cp /etc/apt/sources.list /etc/apt/sources.list.d/sources-src.list
-    sed -i 's|deb http|deb-src http|g' /etc/apt/sources.list.d/sources-src.list
-fi
+sed -i 's/^Types: deb$/Types: deb deb-src/' /etc/apt/sources.list.d/ubuntu.sources
 
 apt-get update
 apt-get -yqq build-dep sqlite3 gettext git
