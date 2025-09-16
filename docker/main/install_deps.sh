@@ -78,12 +78,6 @@ if [[ "${TARGETARCH}" == "amd64" ]]; then
     apt-get install -y dpkg
     # use intel apt intel packages
     apt-get update
-    apt-get -qq install --no-install-recommends --no-install-suggests -y \
-        intel-gpu-tools onevpl-tools libva-drm2 \
-        libze-intel-gpu1 intel-metrics-discovery intel-opencl-icd clinfo intel-gsc \
-        intel-media-va-driver-non-free libmfx-gen1 libvpl2 libva-glx2 va-driver-all vainfo
-
-    apt-get -qq install -y ocl-icd-libopencl1
     
     apt -qq install -y libtbb12
 
@@ -95,6 +89,13 @@ if [[ "${TARGETARCH}" == "amd64" ]]; then
     
     dpkg -i level-zero*.deb
     rm *.deb
+
+     apt-get -qq install --no-install-recommends --no-install-suggests -y \
+        intel-gpu-tools onevpl-tools libva-drm2 \
+        libze-intel-gpu1 intel-metrics-discovery intel-opencl-icd clinfo intel-gsc \
+        intel-media-va-driver-non-free libmfx-gen1 libvpl2 libva-glx2 va-driver-all vainfo
+        
+    apt-get -qq install -y ocl-icd-libopencl1
 fi
 
 if [[ "${TARGETARCH}" == "arm64" ]]; then
