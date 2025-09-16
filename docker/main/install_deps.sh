@@ -57,32 +57,33 @@ fi
 
 # arch specific packages
 if [[ "${TARGETARCH}" == "amd64" ]]; then
-  # Install non-free version of i965 driver
-  sed -i -E "/^Components: main$/s/main/main contrib non-free non-free-firmware/" "/etc/apt/sources.list.d/debian.sources" \
-      && apt-get -qq update \
-      && apt-get install --no-install-recommends --no-install-suggests -y i965-va-driver-shaders \
-      && sed -i -E "/^Components: main contrib non-free non-free-firmware$/s/main contrib non-free non-free-firmware/main/" "/etc/apt/sources.list.d/debian.sources" \
-      && apt-get update
-
-    # install amd / intel-i965 driver packages
-    apt-get -qq install --no-install-recommends --no-install-suggests -y \
-        intel-gpu-tools onevpl-tools \
-        libva-drm2 \
-        mesa-va-drivers radeontop
-
+    apt-get -qq update
+    apt-get -qq install --no-install-recommends -y software-properties-common
+    add-apt-repository ppa:deadsnakes/ppa
+    add-apt-repository -y ppa:kobuk-team/intel-graphics
     # intel packages use zst compression so we need to update dpkg
     apt-get install -y dpkg
 
-    # use intel apt intel packages
-    wget -qO - https://repositories.intel.com/gpu/intel-graphics.key | gpg --yes --dearmor --output /usr/share/keyrings/intel-graphics.gpg
-    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/intel-graphics.gpg] https://repositories.intel.com/gpu/ubuntu jammy client" | tee /etc/apt/sources.list.d/intel-gpu-jammy.list
-    apt-get -qq update
+    apt-get update
     apt-get -qq install --no-install-recommends --no-install-suggests -y \
-        intel-opencl-icd=24.35.30872.31-996~22.04 intel-level-zero-gpu=1.3.29735.27-914~22.04 intel-media-va-driver-non-free=24.3.3-996~22.04 \
-        libmfx1=23.2.2-880~22.04 libmfxgen1=24.2.4-914~22.04 libvpl2=1:2.13.0.0-996~22.04
+        intel-gpu-tools onevpl-tools libva-drm2 \
+        intel-metrics-discovery intel-opencl-icd clinfo intel-gsc \
+        intel-media-va-driver-non-free libmfx-gen1 libvpl2 libva-glx2 va-driver-all vainfo      
 
-    rm -f /usr/share/keyrings/intel-graphics.gpg
-    rm -f /etc/apt/sources.list.d/intel-gpu-jammy.list
+    apt-get -qq install -y ocl-icd-libopencl1
+
+    dpkg --purge --force-remove-reinstreq intel-driver-compiler-npu intel-fw-npu intel-level-zero-npu
+
+    apt -qq install -y libtbb12
+
+    wget https://github.com/intel/linux-npu-driver/releases/download/v1.23.0/linux-npu-driver-v1.23.0.20250827-17270089246-ubuntu2404.tar.gz
+    tar -xf linux-npu-driver-v1.23.0.20250827-17270089246-ubuntu2404.tar.gz
+    dpkg -i *.deb
+
+    wget https://github.com/oneapi-src/level-zero/releases/download/v1.22.4/level-zero_1.22.4+u24.04_amd64.deb
+
+    dpkg -i level-zero*.deb
+    rm *.deb
 fi
 
 if [[ "${TARGETARCH}" == "arm64" ]]; then
