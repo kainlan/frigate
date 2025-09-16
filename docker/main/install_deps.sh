@@ -85,14 +85,7 @@ if [[ "${TARGETARCH}" == "amd64" ]]; then
 
     apt-get -qq install -y ocl-icd-libopencl1
     
-    wget https://github.com/intel/linux-npu-driver/releases/download/v1.23.0/linux-npu-driver-v1.23.0.20250827-17270089246-ubuntu2404.tar.gz
-    tar -xf linux-npu-driver-v1.23.0.20250827-17270089246-ubuntu2404.tar.gz
-
-    apt -qq install -y libtbb12
-
-    dpkg -i *.deb
-    rm *.deb
-    rm linux-npu-driver-v1.23.0.20250827-17270089246-ubuntu2404.tar.gz
+    apt -qq install -y intel-fw-npu libtbb12
 fi
 
 if [[ "${TARGETARCH}" == "arm64" ]]; then
