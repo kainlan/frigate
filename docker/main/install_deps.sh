@@ -80,12 +80,21 @@ if [[ "${TARGETARCH}" == "amd64" ]]; then
     apt-get update
     apt-get -qq install --no-install-recommends --no-install-suggests -y \
         intel-gpu-tools onevpl-tools libva-drm2 \
-        libze-intel-gpu1 libze1 intel-metrics-discovery intel-opencl-icd clinfo intel-gsc \
+        libze-intel-gpu1 intel-metrics-discovery intel-opencl-icd clinfo intel-gsc \
         intel-media-va-driver-non-free libmfx-gen1 libvpl2 libva-glx2 va-driver-all vainfo
 
     apt-get -qq install -y ocl-icd-libopencl1
     
-    apt -qq install -y intel-fw-npu libtbb12
+    apt -qq install -y libtbb12
+
+    wget https://github.com/intel/linux-npu-driver/releases/download/v1.23.0/linux-npu-driver-v1.23.0.20250827-17270089246-ubuntu2404.tar.gz
+    tar -xf linux-npu-driver-v1.23.0.20250827-17270089246-ubuntu2404.tar.gz
+    dpkg -i *.deb
+
+    wget https://github.com/oneapi-src/level-zero/releases/download/v1.22.4/level-zero_1.22.4+u24.04_amd64.deb
+    
+    dpkg -i level-zero*.deb
+    rm *.deb
 fi
 
 if [[ "${TARGETARCH}" == "arm64" ]]; then
