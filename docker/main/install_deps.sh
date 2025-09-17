@@ -61,6 +61,7 @@ fi
 # arch specific packages
 if [[ "${TARGETARCH}" == "amd64" ]]; then
     apt-get -qq update
+    apt-get -qq install --reinstall -y python3-apt
     apt-get -qq install --no-install-recommends -y software-properties-common
     add-apt-repository ppa:deadsnakes/ppa
     add-apt-repository -y ppa:kobuk-team/intel-graphics
