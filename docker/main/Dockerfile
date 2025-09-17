@@ -244,7 +244,7 @@ RUN wget -q https://bootstrap.pypa.io/get-pip.py -O get-pip.py \
     && python3 get-pip.py "pip"
 
 RUN --mount=type=bind,from=wheels,source=/wheels,target=/deps/wheels \
-    pip3 install -U /deps/wheels/*.whl
+    pip3 install -U /deps/wheels/*.whl --ignore-installed
 
 COPY --from=deps-rootfs / /
 
