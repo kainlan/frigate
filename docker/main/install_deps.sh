@@ -5,6 +5,7 @@ set -euxo pipefail
 apt-get -qq update
 apt-get -qq install --no-install-recommends -y software-properties-common
 add-apt-repository ppa:deadsnakes/ppa
+add-apt-repository -y ppa:kobuk-team/intel-graphics
 apt-get -qq update
 
 apt-get -qq install --no-install-recommends -y \
@@ -60,24 +61,19 @@ fi
 
 # arch specific packages
 if [[ "${TARGETARCH}" == "amd64" ]]; then
-    apt-get -qq update
-    apt-get -qq install --reinstall -y python3-apt
-    apt-get -qq install --no-install-recommends -y software-properties-common
-    add-apt-repository ppa:deadsnakes/ppa
-    add-apt-repository -y ppa:kobuk-team/intel-graphics
     # intel packages use zst compression so we need to update dpkg
     apt-get install -y dpkg
-
+    # use intel apt intel packages
     apt-get update
-    apt-get -qq install --no-install-recommends --no-install-suggests -y \
+     apt-get -qq install --no-install-recommends --no-install-suggests -y \
         intel-gpu-tools onevpl-tools libva-drm2 \
         intel-metrics-discovery intel-opencl-icd clinfo intel-gsc \
         intel-media-va-driver-non-free libmfx-gen1 libvpl2 libva-glx2 va-driver-all vainfo      
-
+        
     apt-get -qq install -y ocl-icd-libopencl1
 
     dpkg --purge --force-remove-reinstreq intel-driver-compiler-npu intel-fw-npu intel-level-zero-npu
-
+    
     apt -qq install -y libtbb12
 
     wget https://github.com/intel/linux-npu-driver/releases/download/v1.23.0/linux-npu-driver-v1.23.0.20250827-17270089246-ubuntu2404.tar.gz
@@ -85,7 +81,7 @@ if [[ "${TARGETARCH}" == "amd64" ]]; then
     dpkg -i *.deb
 
     wget https://github.com/oneapi-src/level-zero/releases/download/v1.22.4/level-zero_1.22.4+u24.04_amd64.deb
-
+    
     dpkg -i level-zero*.deb
     rm *.deb
 fi
