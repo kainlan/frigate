@@ -72,17 +72,17 @@ if [[ "${TARGETARCH}" == "amd64" ]]; then
         
     apt-get -qq install -y ocl-icd-libopencl1
 
-    dpkg --purge --force-remove-reinstreq intel-driver-compiler-npu intel-fw-npu intel-level-zero-npu
+    dpkg --purge --force-remove-reinstreq intel-driver-compiler-npu intel-fw-npu intel-level-zero-npu intel-level-zero-npu-dbgsym
     
     apt -qq install -y libtbb12
 
-    wget https://github.com/intel/linux-npu-driver/releases/download/v1.23.0/linux-npu-driver-v1.23.0.20250827-17270089246-ubuntu2404.tar.gz
-    tar -xf linux-npu-driver-v1.23.0.20250827-17270089246-ubuntu2404.tar.gz
+    wget https://github.com/intel/linux-npu-driver/releases/download/v1.24.0/linux-npu-driver-v1.24.0.20251003-18218973328-ubuntu2404.tar.gz
+    tar -xf linux-npu-driver-v1.24.0.20251003-18218973328-ubuntu2404.tar.gz
     dpkg -i *.deb
 
-    wget https://github.com/oneapi-src/level-zero/releases/download/v1.22.4/level-zero_1.22.4+u24.04_amd64.deb
-    
+    wget https://github.com/oneapi-src/level-zero/releases/download/v1.24.2/level-zero_1.24.2+u22.04_amd64.deb
     dpkg -i level-zero*.deb
+    
     rm *.deb
 fi
 
