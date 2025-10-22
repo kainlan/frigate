@@ -6,8 +6,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Globally set pip break-system-packages option to avoid having to specify it every time
 ARG PIP_BREAK_SYSTEM_PACKAGES=1
 
-ARG BASE_IMAGE=ubuntu:25.10
-ARG SLIM_BASE=ubuntu:25.10
+ARG BASE_IMAGE=ubuntu:25.04
+ARG SLIM_BASE=ubuntu:25.04
 
 # A hook that allows us to inject commands right after the base images
 ARG BASE_HOOK=
@@ -18,7 +18,7 @@ ARG BASE_HOOK
 
 RUN sh -c "$BASE_HOOK"
 
-FROM --platform=${BUILDPLATFORM} ubuntu:25.10 AS base_host
+FROM --platform=${BUILDPLATFORM} ubuntu:25.04 AS base_host
 ARG PIP_BREAK_SYSTEM_PACKAGES
 
 FROM ${SLIM_BASE} AS slim-base
