@@ -68,7 +68,8 @@ if [[ "${TARGETARCH}" == "amd64" ]]; then
      apt-get -qq install --no-install-recommends --no-install-suggests -y \
         intel-gpu-tools onevpl-tools libva-drm2 \
         intel-metrics-discovery intel-opencl-icd clinfo intel-gsc \
-        intel-media-va-driver-non-free libmfx-gen1 libvpl2 libva-glx2 va-driver-all vainfo      
+        intel-media-va-driver-non-free libmfx-gen1 libvpl2 libva-glx2 va-driver-all vainfo \
+        intel-basekit intel-oneapi-runtime-libs
         
     apt-get -qq install -y ocl-icd-libopencl1
 
